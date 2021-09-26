@@ -9,15 +9,15 @@ class UserManager(models.Manager):
         age = postData['birthday']
         errors = {}
         if len(User.objects.filter(email=postData['email'])) > 0:
-            errors['exists'] = "Email already exists caquita"
+            errors['exists'] = "Email already registered"
         else:
             if len(postData['first_name']) == 0:
                 errors['no_first_name'] = "You must provide a first name"
-            if len(postData['first_name']) < 2:
+            if len(postData['first_name']) < 3 and len(postData['first_name'])  != 0:
                 errors['first_name'] = "First name is not long enough"
             if len(postData['last_name']) == 0:
                 errors['no_last_name'] = "You must provide a last name"
-            if len(postData['last_name']) < 2:
+            if len(postData['last_name']) < 3 and len(postData['last_name']) != 0:
                 errors['last_name'] = "Last name is not long enough"
             if len(postData['email']) == 0:
                 errors['no_email'] = "You must provide a email"
@@ -27,7 +27,7 @@ class UserManager(models.Manager):
                 errors['email'] = "Invalid email"
             if len(postData['password']) == 0:
                 errors['no_password'] = "You must provide a password"
-            if len(postData['password']) < 8:
+            if len(postData['password']) < 8 and len(postData['password']) != 0:
                 errors['no_password'] = "Your password must have at least 8 characters"
             if postData['password'] != postData['password_c']:
                 errors['password_c'] = "Password no son iguales"
